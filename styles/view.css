@@ -1,0 +1,97 @@
+* {
+    margin: 0;
+}
+
+.view{
+    padding: 20px 0;
+}
+
+.view-quiz-name {
+    color: #6933DC;
+    font-size: 20px;
+    margin-bottom: 60px;
+}
+
+.view-results {
+    display: flex;
+    gap: 15px;
+}
+
+.view-result {
+    display: flex;
+    align-items: center;
+    align-self: flex-start;
+    gap: 15px;
+    font-size: 20px;
+    color: #DCDCF3;
+}
+
+.test-question {
+    margin-bottom: 60px;
+}
+
+.test-question-title {
+    margin-bottom: 40px;
+}
+
+.big-title {
+    margin-bottom: 60px;
+}
+
+.test-question-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.test-question-option label.correct {
+    color: green;
+}
+
+.test-question-option label.incorrect {
+    color: red;
+}
+
+.result-back{
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    justify-self: flex-end;
+}
+
+.result-back a{
+    text-decoration: none;
+}
+
+input[type="radio"]::before {
+    content: "";
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    box-shadow: inset 10px 10px #6933DC;
+    transition: .2s ease transform;
+    transform: scale(0);
+}
+
+input[type="radio"]:checked::before {
+    transform: scale(1);
+}
+
+.test-question-option.correct input[type="radio"] {
+    border-color: green;
+}
+
+.test-question-option.incorrect input[type="radio"] {
+    border-color: red;
+}
+
+input[type="radio"].correct::before {
+    box-shadow: inset 10px 10px green;
+    transform: scale(1);
+}
+
+input[type="radio"].incorrect::before {
+    box-shadow: inset 10px 10px red;
+    transform: scale(1);
+}

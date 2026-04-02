@@ -182,6 +182,10 @@
         complete() {
             const url = new URL(location.href);
             const id = url.searchParams.get('id');
+            const answersString = this.quiz.questions.map(question => {
+                const result = this.userResult.find(item => item.questionId === question.id);
+                return result ? result.chosenAnswerId : '';
+            }).join(',');
             const name = url.searchParams.get('name');
             const lastName = url.searchParams.get('lastName');
             const email = url.searchParams.get('email');
@@ -204,7 +208,7 @@
                 }
                 if (result){
                     console.log(result);
-                    location.href = 'result.html?score=' + result.score +'&total=' + result.total;
+                    location.href = 'result.html?score=' + result.score +'&total=' + result.total + '&id=' + this.quiz.id + '&answers=' + answersString;
                 }
             } else {
                 location.href = 'index.html';

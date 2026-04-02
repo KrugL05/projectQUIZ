@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Результаты теста</title>
+    <link rel="stylesheet" href="styles/common.css">
+    <link rel="stylesheet" href="styles/view.css">
+</head>
+<body>
+<header class="header">
+    <div class="container">
+        <div class="logo">
+            <img src="images/Logo.png" alt="Логотип">
+        </div>
+    </div>
+</header>
+
+<section class="view">
+    <div class="container">
+        <div class="view-results">
+            <div class="view-result">
+                <div>Результат прохождения теста</div>
+                <img src="images/gray-arrow.png" alt="Серая стрелочка">
+            </div>
+            <p class="view-quiz-name" id="quiz-name"></p>
+        </div>
+        <h1 class="big-title"><span>Правильные ответы</span> к тесту</h1>
+
+        <div id="questions"></div>
+
+        <div class="result-back">
+            <a href="#" onclick="history.back()">Обратно к моему результату теста</a>
+            <img src="images/test-arrow.png" alt="Фиолетовая стрелочка">
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    «АйтилогияQuiz» © Все права защищены / 2022
+</footer>
+
+<script src="scripts/common.js"></script>
+<script src="scripts/view.js"></script>
+</body>
+</html>
