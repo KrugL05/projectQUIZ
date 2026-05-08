@@ -1,13 +1,16 @@
 <section class="view">
     <div class="container">
-        <div class="view-results">
-            <div class="view-result">
-                <div>Результат прохождения теста</div>
-                <img src="../images/gray-arrow.png" alt="Серая стрелочка">
-            </div>
-            <p class="view-quiz-name" id="quiz-name"></p>
+        <div class="view-breadcrumb">
+            <a href="#/result" class="view-breadcrumb-link">Результат прохождения теста</a>
+            <span class="view-breadcrumb-sep">›</span>
+            <span class="view-breadcrumb-current" id="quiz-name"></span>
         </div>
-        <h1 class="big-title"><span>Правильные ответы</span> к тесту</h1>
+
+        <h1 class="view-title"><span>Правильные ответы</span> к тесту</h1>
+
+        <p class="view-user-info">
+            Тест выполнил <span id="user-full-name"></span>, <span id="user-email"></span>
+        </p>
 
         <div id="questions"></div>
 

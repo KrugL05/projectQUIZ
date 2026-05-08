@@ -1,39 +1,58 @@
 import {UrlManager} from "../utils/url-manager.js";
+import {CustomHttp} from "../services/custom-http.js";
+import {Auth} from "../services/auth.js";
+import config from "../../config/config.js";
 
 export class View {
     constructor() {
-        this.routerParams = UrlManager.getQueryParams()
-        const id = this.routerParams.id;
-        const userAnswers = this.routerParams.answers.split(',').map(Number);
+        this.routerParams = UrlManager.getQueryParams();
+        this.init();
+    }
 
-        const quizXhr = new XMLHttpRequest();
-        quizXhr.open('GET', 'https://testologia.ru/get-quiz?id=' + id, false);
-        quizXhr.send();
-
-        const rightXhr = new XMLHttpRequest();
-        rightXhr.open('GET', 'https://testologia.ru/get-quiz-right?id=' + id, false);
-        rightXhr.send();
-
-        if (quizXhr.status !== 200 || rightXhr.status !== 200) {
+    async init() {
+        const userInfo = Auth.getUserInfo();
+        if (!userInfo) {
             location.href = '#/';
             return;
         }
 
-        const quiz = JSON.parse(quizXhr.responseText);
-        const rightAnswers = JSON.parse(rightXhr.responseText);
+        const fullNameElement = document.getElementById('user-full-name');
+        const emailElement = document.getElementById('user-email');
+        if (fullNameElement && userInfo.fullName) {
+            fullNameElement.innerText = userInfo.fullName;
+        }
+        if (emailElement && userInfo.email) {
+            emailElement.innerText = userInfo.email;
+        }
 
-        document.getElementById('quiz-name').innerText = quiz.name;
+        const id = this.routerParams.id;
+        if (!id) {
+            location.href = '#/';
+            return;
+        }
 
-        this.render(quiz, rightAnswers, userAnswers);
+        try {
+            const result = await CustomHttp.request(
+                config.host + '/tests/' + id + '/result/details?userId=' + userInfo.userId
+            );
+
+            if (!result || result.error) {
+                throw new Error(result ? result.message : 'Ошибка загрузки');
+            }
+
+            const test = result.test;
+            document.getElementById('quiz-name').innerText = test.name;
+            this.render(test);
+        } catch (e) {
+            console.log(e);
+            location.href = '#/';
+        }
     }
 
-    render(quiz, rightAnswers, userAnswers) {
+    render(test) {
         const container = document.getElementById('questions');
 
-        quiz.questions.forEach((question, index) => {
-            const userAnswerId = userAnswers[index];
-            const rightAnswerId = rightAnswers[index];
-
+        test.questions.forEach((question, index) => {
             const questionEl = document.createElement('div');
             questionEl.className = 'test-question';
 
@@ -54,9 +73,9 @@ export class View {
                 const labelEl = document.createElement('label');
                 labelEl.innerText = answer.answer;
 
-                if (answer.id === userAnswerId) {
+                if (answer.hasOwnProperty('correct')) {
                     radioEl.checked = true;
-                    const isCorrect = answer.id === rightAnswerId;
+                    const isCorrect = answer.correct === true;
                     radioEl.classList.add(isCorrect ? 'correct' : 'incorrect');
                     optionEl.classList.add(isCorrect ? 'correct' : 'incorrect');
                     labelEl.classList.add(isCorrect ? 'correct' : 'incorrect');
@@ -71,4 +90,5 @@ export class View {
         });
     }
 }
+
 
