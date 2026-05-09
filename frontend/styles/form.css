@@ -91,3 +91,29 @@
     font-size: 12px;
     line-height: 14px;
 }
+
+.field-error {
+    display: block;
+    font-size: 11px;
+    line-height: 13px;
+    color: #EB5757;
+    margin-top: 4px;
+    position: absolute;
+    bottom: 5px;
+    left: 23px;
+    right: 10px;
+}
+
+.form-group {
+    height: auto;
+    min-height: 74px;
+    padding-bottom: 20px;
+}
+
+.server-error {
+    margin-top: 12px;
+    font-size: 13px;
+    line-height: 16px;
+    color: #EB5757;
+    max-width: 485px;
+}

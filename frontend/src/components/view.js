@@ -31,6 +31,17 @@ export class View {
             return;
         }
 
+        const breadcrumbLink = document.querySelector('.view-breadcrumb-link');
+        if (breadcrumbLink) {
+            breadcrumbLink.href = '#/result?id=' + id;
+        }
+
+        const backLink = document.querySelector('.result-back a');
+        if (backLink) {
+            backLink.href = '#/result?id=' + id;
+            backLink.removeAttribute('onclick');
+        }
+
         try {
             const result = await CustomHttp.request(
                 config.host + '/tests/' + id + '/result/details?userId=' + userInfo.userId

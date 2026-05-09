@@ -7,7 +7,7 @@ export class Result {
     constructor() {
         this.routerParams = UrlManager.getQueryParams()
         const viewLink = document.getElementById('result-view');
-        viewLink.href = '#/view?id=' + this.routerParams.id + '&answers=' + this.routerParams.answers;
+        viewLink.href = '#/view?id=' + this.routerParams.id;
 
         this.init();
     }

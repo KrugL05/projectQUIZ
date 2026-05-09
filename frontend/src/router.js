@@ -83,7 +83,7 @@ export class Router {
         const urlRoute = window.location.hash.split('?')[0];
         if (urlRoute === '#/logout') {
             await Auth.logout();
-            window.location.href = '#/';
+            window.location.href = '#/login';
             return;
         }
 
